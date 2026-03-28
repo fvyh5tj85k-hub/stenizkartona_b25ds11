@@ -1097,3 +1097,5 @@ resizeDecorateCanvas();
 if (decorateColorButtons[0]) {
   setDecorateActiveColor(decorateColorButtons[0]);
 }
+
+// i am making changes
