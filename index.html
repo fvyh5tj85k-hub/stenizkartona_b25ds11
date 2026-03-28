@@ -1,11 +1,270 @@
 <!DOCTYPE html>
-<html lang="rus">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Стены из картона</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Стены из картона</title>
+  <link rel="stylesheet" href="stylesheets/style.css?v=20260328t">
+  <script defer src="javascripts/scripts.js?v=20260328t"></script>
 </head>
 <body>
-    
+  <div class="hero">
+    <h1 class="hero-title">
+      ЧТО-ТО СКРЫВАЕТСЯ<br>
+      ПОД ЭТИМИ КОРОБКАМИ...<br>
+      НУЖНО ИХ РАСЧИСТИТЬ
+    </h1>
+
+    <div class="scene">
+      <div class="stack-area">
+        <img src="./images/boxWithTicket.png" class="ticket-box" id="ticketBox" alt="коробка с билетом">
+
+        <div class="boxes" id="boxes">
+          <img src="./images/box-new-2.png" class="box b1" alt="Коробка с иконкой переработки">
+          <img src="./images/box-new-1.png" class="box b2" alt="Коробка с заклеенными лентами">
+          <img src="./images/box-new-4.png" class="box b3" alt="Шестиугольная коробка fragile">
+          <img src="./images/box-new-7.png" class="box b4" alt="Коробка с листами и лентами">
+          <img src="./images/box-new-5.png" class="box b5" alt="Ромбовидная коробка с маркировкой">
+          <img src="./images/box-new-3.png" class="box b6" alt="Длинная коробка с маркировкой">
+          <img src="./images/box-new-6.png" class="box b7" alt="Коробка с плотной лентой fragile">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <img src="./images/ticket.png" class="ticket-full" id="ticketFull" alt="Билет">
+  </div>
+
+  <section class="cut-screen" id="cutScreen">
+    <div class="cut-panel">
+      <button class="cut-question-mark" id="cutQuestionMark" type="button" aria-label="Подсказка">?</button>
+      <div class="cut-sidebar">
+        <button class="cut-thumb is-active" type="button" aria-label="Звезда">
+          <img src="" alt="">
+        </button>
+        <button class="cut-thumb" type="button" aria-label="Сердце">
+          <img src="" alt="">
+        </button>
+        <button class="cut-thumb" type="button" aria-label="Цветок">
+          <img src="" alt="">
+        </button>
+        <button class="cut-thumb" type="button" aria-label="Домик">
+          <img src="" alt="">
+        </button>
+        <button class="cut-thumb" type="button" aria-label="Кружка">
+          <img src="" alt="">
+        </button>
+      </div>
+
+      <div class="cut-main">
+        <h2 class="cut-title">РАЗРЕЖЕМ КАРТОН!</h2>
+
+        <div class="cut-workspace">
+          <div class="cut-stage" id="cutStage">
+            <img src="" class="cut-paper cut-paper--base" id="cutBasePaper" alt="">
+            <div class="cut-finish-message" id="cutFinishMessage">
+              ПОЗДРАВЛЯЕМ!<br>
+              ВЫ РАЗРЕЗАЛИ КАРТОН!
+            </div>
+            <div class="cut-hint" id="cutHint">Возьми ножницы и проведи по картону</div>
+          </div>
+
+          <button class="scissors-tool" id="scissorsTool" type="button" aria-pressed="false">
+            <img src="./images/cardboardScissors.png" class="cut-scissors" alt="Ножницы">
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="marquee-screen" aria-label="Бегущая строка">
+    <div class="marquee-track">
+      <div class="marquee-line">
+        <span>ОТКРОЙ ОКНА!</span>
+        <span>ОТКРОЙ ОКНА!</span>
+        <span>ОТКРОЙ ОКНА!</span>
+        <span>ОТКРОЙ ОКНА!</span>
+      </div>
+      <div class="marquee-line" aria-hidden="true">
+        <span>ОТКРОЙ ОКНА!</span>
+        <span>ОТКРОЙ ОКНА!</span>
+        <span>ОТКРОЙ ОКНА!</span>
+        <span>ОТКРОЙ ОКНА!</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="windows-screen" aria-label="Окна">
+    <div class="windows-grid">
+      <button class="window-card window-card--toggle" id="fragileWindow" type="button" aria-label="Открыть окно с лентами fragile" aria-pressed="false">
+        <img src="./images/window-fragile.png" class="window-card-image window-card-image--closed" alt="Окно с лентами fragile">
+        <img src="./images/window-fragile-open.png" class="window-card-image window-card-image--open" alt="Открытое окно с интерьером">
+      </button>
+      <button class="window-card window-card--toggle" id="iconsWindow" type="button" aria-label="Открыть окно с пиктограммами" aria-pressed="false">
+        <img src="./images/window-icons.png" class="window-card-image window-card-image--closed" alt="Окно с пиктограммами">
+        <img src="./images/window-icons-open.png" class="window-card-image window-card-image--open" alt="Открытое окно с кухней">
+      </button>
+      <button class="window-card window-card--toggle" id="graffitiWindow" type="button" aria-label="Открыть окно с надписями" aria-pressed="false">
+        <img src="./images/window-graffiti.png" class="window-card-image window-card-image--closed" alt="Окно с надписями">
+        <img src="./images/window-graffiti-open.png" class="window-card-image window-card-image--open" alt="Открытое окно с комнатой">
+      </button>
+    </div>
+  </section>
+
+  <section class="tower-screen" aria-label="Игра с башней">
+    <div class="tower-panel">
+      <button class="tower-help-button" id="towerHelpButton" type="button" aria-label="Подсказка">?</button>
+      <div class="tower-meta">
+        <div class="tower-stat">СЧЕТ: <span id="towerScore">0</span></div>
+        <div class="tower-stat">РЕКОРД: <span id="towerBest">0</span></div>
+      </div>
+
+      <div class="tower-arena-wrap">
+        <div class="tower-arena" id="towerArena">
+          <div class="tower-spawn-line"></div>
+          <div class="tower-stack" id="towerStack"></div>
+          <img src="" id="towerCurrentBox" class="tower-current-box" alt="Текущая коробка">
+        </div>
+      </div>
+
+      <div class="tower-mouse-slot" aria-hidden="true">
+        <img src="./images/tower-mouse.png" class="tower-mouse-image tower-mouse-image--base" alt="">
+        <img src="./images/tower-mouse-pressed.png" class="tower-mouse-image tower-mouse-image--pressed" alt="">
+      </div>
+    </div>
+  </section>
+
+  <section class="gift-screen" aria-label="Экран с подарком">
+    <div class="gift-panel">
+      <button class="gift-help-button" id="giftHelpButton" type="button" aria-label="Подсказка">?</button>
+
+      <div class="gift-content" id="giftContent">
+        <h2 class="gift-title" id="giftTitle">ПОЛУЧИТЕ ОТ НАС ПОДАРОК!</h2>
+
+        <div class="gift-stage" id="giftStage">
+          <img src="./images/gift-box.png" class="gift-stage-image gift-stage-image--box" id="giftBoxImage" alt="Коробка с вопросом">
+          <img src="" class="gift-stage-image gift-stage-image--prize" id="giftPrizeImage" alt="">
+        </div>
+
+        <div class="gift-actions">
+          <button class="gift-action-button gift-action-button--generate" id="giftGenerateButton" type="button">СГЕНЕРИРОВАТЬ</button>
+          <button class="gift-action-button gift-action-button--reset" id="giftResetButton" type="button" disabled>СБРОСИТЬ</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="decorate-screen" aria-label="Экран для рисования по коробке">
+    <div class="decorate-panel">
+      <div class="decorate-toolbar">
+        <div class="decorate-tools decorate-tools--left" aria-label="Инструменты рисования">
+          <button class="decorate-color-swatch is-active" id="decorateColorBlue" type="button" data-color="#8B9A9F" aria-label="Голубой цвет">
+            <img src="./images/paint-color-blue-custom.png" alt="">
+          </button>
+          <button class="decorate-color-swatch" id="decorateColorRed" type="button" data-color="#A0381B" aria-label="Красный цвет">
+            <img src="./images/paint-color-red-custom.png" alt="">
+          </button>
+          <button class="decorate-color-swatch" id="decorateColorBrown" type="button" data-color="#56433C" aria-label="Коричневый цвет">
+            <img src="./images/paint-color-brown-custom.png" alt="">
+          </button>
+        </div>
+
+        <div class="decorate-tools decorate-tools--right" aria-label="Марки">
+          <button class="decorate-mark-button" type="button" data-stamp="recycle" aria-label="Марка с переработкой">
+            <img src="./images/mark-recycle.png" alt="">
+          </button>
+          <button class="decorate-mark-button" type="button" data-stamp="arrow" aria-label="Марка со стрелками вверх">
+            <img src="./images/mark-arrow.png" alt="">
+          </button>
+          <button class="decorate-mark-button" type="button" data-stamp="umbrella" aria-label="Марка с зонтом">
+            <img src="./images/mark-umbrella.png" alt="">
+          </button>
+        </div>
+      </div>
+
+      <div class="decorate-stage">
+        <div class="decorate-canvas-wrap" id="decorateCanvasWrap">
+          <img src="./images/paint-box-base-empty.png" class="decorate-box-base" alt="Коробка для раскрашивания">
+          <canvas class="decorate-canvas" id="decorateCanvas"></canvas>
+        </div>
+      </div>
+
+      <div class="decorate-actions">
+        <button class="decorate-undo-button" id="decorateUndoButton" type="button" aria-label="Отменить последнее действие">
+          <img src="./images/paint-undo-arrow.png" alt="">
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer" aria-label="Подвал сайта">
+    <div class="site-footer__inner">
+      <p class="site-footer__credits">КУРАТОРЫ: &nbsp; КОМКОВА АННА, ЦВЕТНИКОВ НИКОЛАЙ</p>
+
+      <div class="site-footer__marquee" aria-hidden="true">
+        <div class="site-footer__marquee-track">
+          <div class="site-footer__marquee-line">
+            <img src="./images/footer-recycle.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-glass.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-umbrella.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-recycle.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-glass.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-umbrella.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-recycle.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-glass.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-umbrella.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-recycle.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-glass.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-umbrella.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-recycle.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-glass.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-umbrella.png" class="site-footer__icon" alt="">
+          </div>
+          <div class="site-footer__marquee-line" aria-hidden="true">
+            <img src="./images/footer-recycle.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-glass.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-umbrella.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-recycle.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-glass.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-umbrella.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-recycle.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-glass.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-umbrella.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-recycle.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-glass.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-umbrella.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-recycle.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-glass.png" class="site-footer__icon" alt="">
+            <img src="./images/footer-umbrella.png" class="site-footer__icon" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="help-overlay" id="helpOverlay" aria-hidden="true">
+    <div class="help-modal" role="dialog" aria-modal="true" aria-label="Подсказка">
+      ЗАЖМИТЕ НОЖНИЦЫ<br>
+      И НАВЕДИТЕ НА ЛИСТ БУМАГИ
+    </div>
+  </div>
+
+  <div class="help-overlay" id="towerHelpOverlay" aria-hidden="true">
+    <div class="help-modal" role="dialog" aria-modal="true" aria-label="Подсказка для башни">
+      ПОСТРОЙТЕ БАШНЮ<br>
+      ИЗ КОРОБОК ПО КЛИКУ!
+    </div>
+  </div>
+
+  <div class="help-overlay" id="giftHelpOverlay" aria-hidden="true">
+    <div class="help-modal" role="dialog" aria-modal="true" aria-label="Подсказка для подарка">
+      НАЖМИТЕ НА "СГЕНЕРИРОВАТЬ"<br>
+      И ПОЛУЧИТЕ СВОЙ ПРИЗ!
+    </div>
+  </div>
 </body>
 </html>
