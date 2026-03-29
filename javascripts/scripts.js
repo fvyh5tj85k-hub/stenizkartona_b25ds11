@@ -17,6 +17,7 @@ const towerHelpOverlay = document.getElementById("towerHelpOverlay");
 const towerArena = document.getElementById("towerArena");
 const towerStack = document.getElementById("towerStack");
 const towerCurrentBox = document.getElementById("towerCurrentBox");
+const towerSpawnLine = document.querySelector(".tower-spawn-line");
 const towerScore = document.getElementById("towerScore");
 const towerBest = document.getElementById("towerBest");
 const towerMouseSlot = document.querySelector(".tower-mouse-slot");
@@ -80,9 +81,9 @@ let currentCutIndex = 0;
 const maxCutIndex = 5;
 const towerStorageKey = "tower-best-score";
 const towerMaxBoxes = Number.POSITIVE_INFINITY;
-const towerFloorInset = 86;
+const towerFloorInset = 26;
+const towerFloorInsetMobile = 42;
 const towerStackTighten = 0;
-const towerSpawnY = -144;
 const towerSafeTop = 190;
 const towerAssets = [
   { src: "./images/tower-box-1.png", alt: "Длинная коробка", width: 214, ratio: 1326 / 3500 },
@@ -155,9 +156,19 @@ const randomTowerAsset = () => {
   return towerAssets[randomIndex];
 };
 
+const isMobileTowerLayout = () => window.matchMedia("(max-width: 700px)").matches;
+
 const getTowerFlightBounds = (width) => {
   const arenaRect = towerArena.getBoundingClientRect();
   const arenaWidth = towerArena.clientWidth;
+
+  if (isMobileTowerLayout()) {
+    const sidePadding = 12;
+    return {
+      minX: sidePadding,
+      maxX: Math.max(sidePadding, arenaWidth - width - sidePadding),
+    };
+  }
 
   let minX = 0;
   let maxX = Math.max(0, arenaWidth - width);
@@ -242,7 +253,22 @@ const createTowerPlacedBox = (boxData) => {
 };
 
 const getTowerFloorY = (height) => {
-  return towerArena.clientHeight - towerFloorInset - height;
+  const floorInset = isMobileTowerLayout() ? towerFloorInsetMobile : towerFloorInset;
+  return towerArena.clientHeight - floorInset - height;
+};
+
+const getTowerSpawnY = (height) => {
+  const floorY = getTowerFloorY(height);
+  const minimumSpawnY = isMobileTowerLayout() ? 8 : -height * 0.6;
+
+  if (!towerSpawnLine) {
+    return Math.max(minimumSpawnY, floorY - 120);
+  }
+
+  const arenaRect = towerArena.getBoundingClientRect();
+  const lineRect = towerSpawnLine.getBoundingClientRect();
+  const lineTop = lineRect.top - arenaRect.top;
+  return Math.max(minimumSpawnY, Math.min(lineTop, floorY - 24));
 };
 
 const spawnTowerBox = () => {
@@ -261,18 +287,19 @@ const spawnTowerBox = () => {
   const width = Math.min(asset.width, Math.max(100, arenaWidth * 0.26));
   const height = width * asset.ratio;
   const { minX, maxX } = getTowerFlightBounds(width);
+  const spawnY = getTowerSpawnY(height);
 
   towerCurrent = {
     asset,
     width,
     height,
     x: Math.round((minX + maxX) * 0.5),
-    y: towerSpawnY,
+    y: spawnY,
     direction: Math.random() > 0.5 ? 1 : -1,
     moveSpeed: 250,
     dropSpeed: 980,
     mode: "moving",
-    targetY: towerSpawnY,
+    targetY: spawnY,
     shouldStack: true,
     minX,
     maxX,
