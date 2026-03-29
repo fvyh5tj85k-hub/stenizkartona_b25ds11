@@ -1,8 +1,14 @@
 @font-face {
   font-family: "STROGO";
-  src: url("./fonts/STROGO.woff2") format("woff2");
+  src:
+    local("STROGO"),
+    local("Strogo"),
+    local("STROGO Regular"),
+    url("../font/Strogo-Regular.ttf") format("truetype"),
+    url("../font/ofont.ru_Strogo.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 :root {
@@ -1284,9 +1290,11 @@ body.ticket-open .hero {
   }
 
   .cut-question-mark {
-    top: 4vw;
+    top: 7.4vw;
     right: 4vw;
     font-size: clamp(20px, 4.4vw, 30px);
+    line-height: 1;
+    z-index: 3;
   }
 
   .help-modal {
@@ -1325,10 +1333,19 @@ body.ticket-open .hero {
   }
 
   .cut-title {
-    margin: 0 auto 3.6vw;
-    font-size: clamp(19px, 4.2vw, 28px);
-    line-height: 1.02;
+    position: absolute;
+    top: 7.4vw;
+    left: 53%;
+    width: auto;
+    max-width: calc(100% - 18vw);
+    margin: 0;
+    padding: 0;
+    transform: translateX(-50%);
+    font-size: clamp(14px, 3.4vw, 20px);
+    line-height: 1;
     text-align: center;
+    white-space: nowrap;
+    z-index: 2;
   }
 
   .cut-workspace {
@@ -1336,7 +1353,7 @@ body.ticket-open .hero {
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 0 11vw 1vw 0;
+    padding: 11vw 11vw 1vw 0;
   }
 
   .cut-stage {
@@ -1348,7 +1365,8 @@ body.ticket-open .hero {
     transform: none;
     justify-content: flex-start;
     align-items: center;
-    padding-top: 2vw;
+    padding-top: 0;
+    width: 100%;
   }
 
   .scissors-tool {
@@ -1364,12 +1382,12 @@ body.ticket-open .hero {
     align-self: stretch;
     align-content: stretch;
     grid-template-rows: repeat(5, 1fr);
-    gap: 1.6vw;
+    gap: 1vw;
     transform: none;
   }
 
   .cut-thumb img {
-    object-fit: cover;
+    object-fit: contain;
   }
 
   .tower-screen {
