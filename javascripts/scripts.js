@@ -35,7 +35,6 @@ const decorateMarkButtons = Array.from(document.querySelectorAll(".decorate-mark
 const decorateUndoButton = document.getElementById("decorateUndoButton");
 const cutThumbs = Array.from(document.querySelectorAll(".cut-thumb"));
 const cutBasePaper = document.getElementById("cutBasePaper");
-const cutFinishMessage = document.getElementById("cutFinishMessage");
 
 let removedBoxes = 0;
 let isTicketOpen = false;
@@ -109,7 +108,6 @@ const decorateStampSources = {
   arrow: "./images/mark-arrow.png",
   umbrella: "./images/mark-umbrella.png",
 };
-let towerAnimationFrame = 0;
 let towerPreviousTimestamp = 0;
 let towerCurrent = null;
 let towerPlaced = [];
@@ -446,27 +444,23 @@ const updateTowerLoop = (timestamp) => {
     renderTowerCurrentBox();
   }
 
-  towerAnimationFrame = window.requestAnimationFrame(updateTowerLoop);
+  window.requestAnimationFrame(updateTowerLoop);
 };
 
 const openTowerHelp = () => {
-  towerHelpOverlay.classList.add("is-active");
-  towerHelpOverlay.setAttribute("aria-hidden", "false");
+  setOverlayState(towerHelpOverlay, true);
 };
 
 const closeTowerHelp = () => {
-  towerHelpOverlay.classList.remove("is-active");
-  towerHelpOverlay.setAttribute("aria-hidden", "true");
+  setOverlayState(towerHelpOverlay, false);
 };
 
 const openGiftHelp = () => {
-  giftHelpOverlay.classList.add("is-active");
-  giftHelpOverlay.setAttribute("aria-hidden", "false");
+  setOverlayState(giftHelpOverlay, true);
 };
 
 const closeGiftHelp = () => {
-  giftHelpOverlay.classList.remove("is-active");
-  giftHelpOverlay.setAttribute("aria-hidden", "true");
+  setOverlayState(giftHelpOverlay, false);
 };
 
 const randomGiftPrize = () => {
@@ -798,13 +792,29 @@ const closeTicket = () => {
 };
 
 const openHelp = () => {
-  helpOverlay.classList.add("is-active");
-  helpOverlay.setAttribute("aria-hidden", "false");
+  setOverlayState(helpOverlay, true);
 };
 
 const closeHelp = () => {
-  helpOverlay.classList.remove("is-active");
-  helpOverlay.setAttribute("aria-hidden", "true");
+  setOverlayState(helpOverlay, false);
+};
+
+const setOverlayState = (overlayElement, isOpen) => {
+  overlayElement.classList.toggle("is-active", isOpen);
+  overlayElement.setAttribute("aria-hidden", String(!isOpen));
+};
+
+const closeOnBackdrop = (overlayElement, onClose) => {
+  overlayElement.addEventListener("click", (event) => {
+    if (event.target === overlayElement) {
+      onClose();
+    }
+  });
+};
+
+const toggleWindowCard = (cardElement) => {
+  const isOpen = cardElement.classList.toggle("is-open");
+  cardElement.setAttribute("aria-pressed", String(isOpen));
 };
 
 boxes.forEach((box) => {
@@ -825,11 +835,7 @@ boxes.forEach((box) => {
 
 ticketBox.addEventListener("click", openTicket);
 
-overlay.addEventListener("click", (event) => {
-  if (event.target === overlay) {
-    closeTicket();
-  }
-});
+closeOnBackdrop(overlay, closeTicket);
 
 window.addEventListener("resize", () => {
   if (ticketBox.classList.contains("is-visible")) {
@@ -892,10 +898,6 @@ const renderCutScene = () => {
   });
 };
 
-const syncCutSidebar = () => {
-  renderCutScene();
-};
-
 const armScissors = () => {
   if (currentCutIndex >= maxCutIndex) {
     return;
@@ -954,12 +956,6 @@ scissorsTool.addEventListener("pointerdown", (event) => {
   event.preventDefault();
 });
 
-scissorsTool.addEventListener("pointermove", (event) => {
-  if (!scissorsArmed || event.pointerId !== activePointerId) {
-    return;
-  }
-});
-
 const releaseScissors = (event) => {
   if (!scissorsArmed || event.pointerId !== activePointerId) {
     return;
@@ -999,42 +995,18 @@ window.addEventListener("pointercancel", releaseScissors);
 
 cutQuestionMark.addEventListener("click", openHelp);
 
-helpOverlay.addEventListener("click", (event) => {
-  if (event.target === helpOverlay) {
-    closeHelp();
-  }
-});
-
-fragileWindow.addEventListener("click", () => {
-  const isOpen = fragileWindow.classList.toggle("is-open");
-  fragileWindow.setAttribute("aria-pressed", String(isOpen));
-});
-
-iconsWindow.addEventListener("click", () => {
-  const isOpen = iconsWindow.classList.toggle("is-open");
-  iconsWindow.setAttribute("aria-pressed", String(isOpen));
-});
-
-graffitiWindow.addEventListener("click", () => {
-  const isOpen = graffitiWindow.classList.toggle("is-open");
-  graffitiWindow.setAttribute("aria-pressed", String(isOpen));
+closeOnBackdrop(helpOverlay, closeHelp);
+[fragileWindow, iconsWindow, graffitiWindow].forEach((cardElement) => {
+  cardElement.addEventListener("click", () => {
+    toggleWindowCard(cardElement);
+  });
 });
 
 towerHelpButton.addEventListener("click", openTowerHelp);
-
-towerHelpOverlay.addEventListener("click", (event) => {
-  if (event.target === towerHelpOverlay) {
-    closeTowerHelp();
-  }
-});
+closeOnBackdrop(towerHelpOverlay, closeTowerHelp);
 
 giftHelpButton.addEventListener("click", openGiftHelp);
-
-giftHelpOverlay.addEventListener("click", (event) => {
-  if (event.target === giftHelpOverlay) {
-    closeGiftHelp();
-  }
-});
+closeOnBackdrop(giftHelpOverlay, closeGiftHelp);
 
 giftGenerateButton.addEventListener("click", generateGiftPrize);
 giftResetButton.addEventListener("click", resetGiftGenerator);
@@ -1118,12 +1090,9 @@ towerBestValue = loadTowerBest();
 loadDecorateStampImages();
 setTowerStats();
 spawnTowerBox();
-towerAnimationFrame = window.requestAnimationFrame(updateTowerLoop);
+window.requestAnimationFrame(updateTowerLoop);
 resetGiftGenerator();
 resizeDecorateCanvas();
 if (decorateColorButtons[0]) {
   setDecorateActiveColor(decorateColorButtons[0]);
 }
-
-// i am making changes
-// i am making changes

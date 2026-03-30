@@ -7,8 +7,8 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>Стены из картона</title>
-  <link rel="stylesheet" href="stylesheets/style.css?v=20260329a">
-  <script defer src="javascripts/scripts.js?v=20260329a"></script>
+  <link rel="stylesheet" href="stylesheets/style.css?v=20260329c">
+  <script defer src="javascripts/scripts.js?v=20260329c"></script>
 </head>
 <body>
   <div class="hero">
@@ -65,11 +65,10 @@
         <div class="cut-workspace">
           <div class="cut-stage" id="cutStage">
             <img src="" class="cut-paper cut-paper--base" id="cutBasePaper" alt="">
-            <div class="cut-finish-message" id="cutFinishMessage">
+            <div class="cut-finish-message">
               ПОЗДРАВЛЯЕМ!<br>
               ВЫ РАЗРЕЗАЛИ КАРТОН!
             </div>
-            <div class="cut-hint" id="cutHint">Возьми ножницы и проведи по картону</div>
           </div>
 
           <button class="scissors-tool" id="scissorsTool" type="button" aria-pressed="false">
@@ -141,11 +140,11 @@
     <div class="gift-panel">
       <button class="gift-help-button" id="giftHelpButton" type="button" aria-label="Подсказка">?</button>
 
-      <div class="gift-content" id="giftContent">
-        <h2 class="gift-title" id="giftTitle">ПОЛУЧИТЕ ОТ НАС ПОДАРОК!</h2>
+      <div class="gift-content">
+        <h2 class="gift-title">ПОЛУЧИТЕ ОТ НАС ПОДАРОК!</h2>
 
-        <div class="gift-stage" id="giftStage">
-          <img src="./images/gift-box.png" class="gift-stage-image gift-stage-image--box" id="giftBoxImage" alt="Коробка с вопросом">
+        <div class="gift-stage">
+          <img src="./images/gift-box.png" class="gift-stage-image gift-stage-image--box" alt="Коробка с вопросом">
           <img src="" class="gift-stage-image gift-stage-image--prize" id="giftPrizeImage" alt="">
         </div>
 
@@ -246,23 +245,32 @@
   </footer>
 
   <div class="help-overlay" id="helpOverlay" aria-hidden="true">
-    <div class="help-modal" role="dialog" aria-modal="true" aria-label="Подсказка">
-      ЗАЖМИТЕ НОЖНИЦЫ<br>
-      И НАВЕДИТЕ НА ЛИСТ БУМАГИ
+    <div class="help-modal help-modal--cut" role="dialog" aria-modal="true" aria-label="Подсказка">
+      <div class="help-modal__title">ПОДСКАЗКА</div>
+      <div class="help-modal__text">
+        ЗАЖМИТЕ НОЖНИЦЫ, А ЗАТЕМ<br>
+        НАВЕДИТЕ ИХ НА ЛИСТ БУМАГИ
+      </div>
     </div>
   </div>
 
   <div class="help-overlay" id="towerHelpOverlay" aria-hidden="true">
-    <div class="help-modal" role="dialog" aria-modal="true" aria-label="Подсказка для башни">
-      ПОСТРОЙТЕ БАШНЮ<br>
-      ИЗ КОРОБОК ПО КЛИКУ!
+    <div class="help-modal help-modal--tower" role="dialog" aria-modal="true" aria-label="Подсказка для башни">
+      <div class="help-modal__title help-modal__title--tower">ПОДСКАЗКА</div>
+      <div class="help-modal__text help-modal__text--tower">
+        ПОСТРОЙ САМУЮ БОЛЬШУЮ<br>
+        БАШНЮ ИЗ КОРОБОК ПО КЛИКУ!
+      </div>
     </div>
   </div>
 
   <div class="help-overlay" id="giftHelpOverlay" aria-hidden="true">
-    <div class="help-modal" role="dialog" aria-modal="true" aria-label="Подсказка для подарка">
-      НАЖМИТЕ НА "СГЕНЕРИРОВАТЬ"<br>
-      И ПОЛУЧИТЕ СВОЙ ПРИЗ!
+    <div class="help-modal help-modal--gift" role="dialog" aria-modal="true" aria-label="Подсказка для подарка">
+      <div class="help-modal__title help-modal__title--gift">ПОДСКАЗКА</div>
+      <div class="help-modal__text help-modal__text--gift">
+        НАЖМИТЕ НА "СГЕНЕРИРОВАТЬ"<br>
+        И ПОЛУЧИТЕ СВОЙ ПРИЗ!
+      </div>
     </div>
   </div>
 </body>
